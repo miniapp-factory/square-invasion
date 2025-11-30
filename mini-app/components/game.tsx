@@ -27,12 +27,6 @@ export default function Game() {
     >([]);
   const rainIdRef = useRef(0);
   const [hitCount, setHitCount] = useState(0);
-  const [leftSquares, setLeftSquares] = useState<
-    { id: number; y: number; x: number }[]
-  >([]);
-  const [rightSquares, setRightSquares] = useState<
-    { id: number; y: number; x: number }[]
-  >([]);
   const enemyIdRef = useRef(0);
   const projectileIdRef = useRef(0);
   const gameAreaRef = useRef<HTMLDivElement>(null);
