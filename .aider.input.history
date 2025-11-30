@@ -324,3 +324,57 @@
 +Use simple hit detection.
 +
 +Before the 20-second mark, enemies do not shoot.
+
+# 2025-11-30 23:21:21.244294
++Enemy Shooting After 20 Seconds after game starts
++
++Enemy Shooting Add-On
++
++Enable enemy airplanes to fire only after 20 seconds of gameplay.
++
++After the first 20 seconds:
++
++Each enemy airplane can fire two single shots, spaced apart.
++
++Bullets are small red dots that move straight downward.
++
++Each enemy fires two bullets total:
++
++First bullet shortly after spawning
++
++Second bullet a moment later
++
++After firing two bullets, that enemy stops shooting.
++
++If a bullet hits the player helicopter, game over.
++
++Use simple hit detection.
++
++Before the 20-second mark, enemies do not shoot.
+
+# 2025-11-30 23:21:21.244762
++Enemy Shooting After 20 Seconds after game starts
++
++Enemy Shooting Add-On
++
++Enable enemy airplanes to fire only after 20 seconds of gameplay.
++
++After the first 20 seconds:
++
++Each enemy airplane can fire two single shots, spaced apart.
++
++Bullets are small red dots that move straight downward.
++
++Each enemy fires two bullets total:
++
++First bullet shortly after spawning
++
++Second bullet a moment later
++
++After firing two bullets, that enemy stops shooting.
++
++If a bullet hits the player helicopter, game over.
++
++Use simple hit detection.
++
++Before the 20-second mark, enemies do not shoot.
