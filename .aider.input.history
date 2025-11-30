@@ -134,3 +134,47 @@
 
 # 2025-11-30 18:53:33.906284
 +apply changes
+
+# 2025-11-30 19:09:31.998760
++
++BACKGROUND EFFECT: "Square Rain"
++
++Fill the entire background with constant falling squares.
++
++Squares should be small, solid-colored, and randomly placed at the top of the screen.
++
++Each square falls straight down at a medium speed.
++
++When a square reaches the bottom, it disappears (or resets back to the top).
++
++Squares should appear continuously so it looks like rain made out of squares.
++
++Use various shades of the same color (for example: different purples or blues) to give a neon look.
++
++Keep the effect behind all gameplay elements (background layer only).
++
++Do not let the squares interact with the player or game objects—purely visual.
++
++
+
+# 2025-11-30 19:09:31.999196
++
++BACKGROUND EFFECT: "Square Rain"
++
++Fill the entire background with constant falling squares.
++
++Squares should be small, solid-colored, and randomly placed at the top of the screen.
++
++Each square falls straight down at a medium speed.
++
++When a square reaches the bottom, it disappears (or resets back to the top).
++
++Squares should appear continuously so it looks like rain made out of squares.
++
++Use various shades of the same color (for example: different purples or blues) to give a neon look.
++
++Keep the effect behind all gameplay elements (background layer only).
++
++Do not let the squares interact with the player or game objects—purely visual.
++
++
