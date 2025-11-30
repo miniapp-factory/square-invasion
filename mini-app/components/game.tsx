@@ -93,6 +93,31 @@ export default function Game() {
     return () => clearInterval(interval);
   }, [state]);
 
+  // Border square spawn
+  useEffect(() => {
+    if (state !== 'playing') return;
+    const spawnLeft = () => {
+      const x = Math.random() * 20;
+      setLeftSquares((prev) => [
+        ...prev,
+        { id: enemyIdRef.current++, x, y: -BORDER_SQUARE_SIZE },
+      ]);
+    };
+    const spawnRight = () => {
+      const x = Math.random() * 20;
+      setRightSquares((prev) => [
+        ...prev,
+        { id: enemyIdRef.current++, x, y: -BORDER_SQUARE_SIZE },
+      ]);
+    };
+    const leftInterval = setInterval(spawnLeft, BORDER_SPAWN_INTERVAL);
+    const rightInterval = setInterval(spawnRight, BORDER_SPAWN_INTERVAL);
+    return () => {
+      clearInterval(leftInterval);
+      clearInterval(rightInterval);
+    };
+  }, [state]);
+
   const handleShoot = () => {
     setProjectiles((prev) => [
       ...prev,
