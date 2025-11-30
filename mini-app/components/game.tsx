@@ -9,6 +9,9 @@ const PLAYER_Y = GAME_HEIGHT - 100;
 const ENEMY_SPAWN_INTERVAL = 2000; // ms
 const ENEMY_SPEED = 1.5; // px per tick
 const PROJECTILE_SPEED = 3; // px per tick
+const BORDER_SQUARE_SIZE = 10;
+const BORDER_SPAWN_INTERVAL = 500; // ms
+const BORDER_SPEED = 1.5; // px per tick
 
 type Enemy = { id: number; x: number; y: number };
 type Projectile = { id: number; x: number; y: number };
@@ -18,6 +21,12 @@ export default function Game() {
   const [playerX, setPlayerX] = useState(PLAYER_X);
   const [enemies, setEnemies] = useState<Enemy[]>([]);
   const [projectiles, setProjectiles] = useState<Projectile[]>([]);
+  const [leftSquares, setLeftSquares] = useState<
+    { id: number; y: number; x: number }[]
+  >([]);
+  const [rightSquares, setRightSquares] = useState<
+    { id: number; y: number; x: number }[]
+  >([]);
   const enemyIdRef = useRef(0);
   const projectileIdRef = useRef(0);
   const gameAreaRef = useRef<HTMLDivElement>(null);
@@ -50,6 +59,18 @@ export default function Game() {
         return remaining;
       });
       setProjectiles((prev) => prev.filter((p) => p.y > -20));
+      // Update left border squares
+      setLeftSquares((prev) =>
+        prev
+          .map((s) => ({ ...s, y: s.y + BORDER_SPEED }))
+          .filter((s) => s.y < GAME_HEIGHT + 20)
+      );
+      // Update right border squares
+      setRightSquares((prev) =>
+        prev
+          .map((s) => ({ ...s, y: s.y + BORDER_SPEED }))
+          .filter((s) => s.y < GAME_HEIGHT + 20)
+      );
       // Check for enemies reaching bottom
       if (enemies.some((e) => e.y > GAME_HEIGHT)) {
         setState('gameover');
@@ -143,6 +164,34 @@ export default function Game() {
         >
           🟡
         </div>
+      ))}
+      {/* Left border squares */}
+      {leftSquares.map((s) => (
+        <div
+          key={s.id}
+          className="absolute"
+          style={{
+            left: s.x,
+            top: s.y,
+            width: BORDER_SQUARE_SIZE,
+            height: BORDER_SQUARE_SIZE,
+            backgroundColor: 'red',
+          }}
+        />
+      ))}
+      {/* Right border squares */}
+      {rightSquares.map((s) => (
+        <div
+          key={s.id}
+          className="absolute"
+          style={{
+            left: GAME_WIDTH - BORDER_SQUARE_SIZE + s.x,
+            top: s.y,
+            width: BORDER_SQUARE_SIZE,
+            height: BORDER_SQUARE_SIZE,
+            backgroundColor: 'gray',
+          }}
+        />
       ))}
       {/* Controls */}
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-4">
