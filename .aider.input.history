@@ -262,3 +262,11 @@
 +The power-up effect should last until the player loses, or until the game resets.
 +
 +Only one power-up needs to appear per game.
+
+# 2025-11-30 22:50:48.051221
++Everytime to "Try Again" button is pushed the player defaults back to (single shot)
++And the "parachute emoji resets"
+
+# 2025-11-30 22:50:48.051718
++Everytime to "Try Again" button is pushed the player defaults back to (single shot)
++And the "parachute emoji resets"
