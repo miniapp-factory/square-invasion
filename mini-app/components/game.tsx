@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 const GAME_WIDTH = 400;
 const GAME_HEIGHT = 600;
 const PLAYER_X = GAME_WIDTH / 2;
-const PLAYER_Y = GAME_HEIGHT - 50;
+const PLAYER_Y = GAME_HEIGHT - 100;
 const ENEMY_SPAWN_INTERVAL = 2000; // ms
 const ENEMY_SPEED = 1.5; // px per tick
 const PROJECTILE_SPEED = 3; // px per tick
