@@ -270,3 +270,57 @@
 # 2025-11-30 22:50:48.051718
 +Everytime to "Try Again" button is pushed the player defaults back to (single shot)
 +And the "parachute emoji resets"
+
+# 2025-11-30 23:05:47.566245
++Enemy Shooting After 20 Seconds
++
++Enemy Shooting Add-On
++
++Enable enemy airplanes to fire only after 20 seconds of gameplay.
++
++After the first 20 seconds:
++
++Each enemy airplane can fire two single shots, spaced apart.
++
++Bullets are small red dots that move straight downward.
++
++Each enemy fires two bullets total:
++
++First bullet shortly after spawning
++
++Second bullet a moment later
++
++After firing two bullets, that enemy stops shooting.
++
++If a bullet hits the player helicopter, game over.
++
++Use simple hit detection.
++
++Before the 20-second mark, enemies do not shoot.
+
+# 2025-11-30 23:05:47.566654
++Enemy Shooting After 20 Seconds
++
++Enemy Shooting Add-On
++
++Enable enemy airplanes to fire only after 20 seconds of gameplay.
++
++After the first 20 seconds:
++
++Each enemy airplane can fire two single shots, spaced apart.
++
++Bullets are small red dots that move straight downward.
++
++Each enemy fires two bullets total:
++
++First bullet shortly after spawning
++
++Second bullet a moment later
++
++After firing two bullets, that enemy stops shooting.
++
++If a bullet hits the player helicopter, game over.
++
++Use simple hit detection.
++
++Before the 20-second mark, enemies do not shoot.
