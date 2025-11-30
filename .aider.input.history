@@ -208,3 +208,15 @@
 +Make them fall straight down at random speeds and sizes. 
 +Keep them low opacity and remove them when off-screen.
 +
+
+# 2025-11-30 21:38:12.406743
++On the "Start Game Screen"
++Add a big "neon pink dot" that circles the start game icon. 
++The neon pink dot leaves a trail that fades then disappears.
++This loops over and over
+
+# 2025-11-30 21:38:12.407240
++On the "Start Game Screen"
++Add a big "neon pink dot" that circles the start game icon. 
++The neon pink dot leaves a trail that fades then disappears.
++This loops over and over
