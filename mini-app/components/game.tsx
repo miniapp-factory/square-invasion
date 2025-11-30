@@ -50,14 +50,21 @@ export default function Game() {
       );
       // Collision detection
       setEnemies((prevEnemies) => {
-        const remaining = prevEnemies.filter((e) => {
-          const hit = projectiles.some(
+        const hits = prevEnemies.filter((e) =>
+          projectiles.some(
             (p) =>
               Math.abs(p.x - e.x) < 20 && Math.abs(p.y - e.y) < 20
-          );
-          return !hit;
-        });
-        return remaining;
+          )
+        );
+        if (hits.length > 0) {
+          setHitCount((prev) => prev + hits.length);
+        }
+        return prevEnemies.filter((e) =>
+          !projectiles.some(
+            (p) =>
+              Math.abs(p.x - e.x) < 20 && Math.abs(p.y - e.y) < 20
+          )
+        );
       });
       setProjectiles((prev) => prev.filter((p) => p.y > -20));
       // Check for enemies reaching bottom
