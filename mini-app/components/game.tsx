@@ -26,6 +26,10 @@ export default function Game() {
       { id: number; x: number; y: number; color: string }[]
     >([]);
   const rainIdRef = useRef(0);
+  const [pinkSquares, setPinkSquares] = useState<
+      { id: number; x: number; y: number; size: number; speed: number }[]
+    >([]);
+  const pinkIdRef = useRef(0);
   const [hitCount, setHitCount] = useState(0);
   const enemyIdRef = useRef(0);
   const projectileIdRef = useRef(0);
