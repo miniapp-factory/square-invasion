@@ -148,7 +148,30 @@ export default function Game() {
 
   const renderStart = () => (
     <div className="flex flex-col items-center gap-4">
-      <img src="/logo.png" alt="Invasion Logo" className="w-32 h-32" />
+      <style jsx>{`
+        .neon-dot {
+          position: absolute;
+          width: 8px;
+          height: 8px;
+          background: hotpink;
+          border-radius: 50%;
+          animation: orbit 2s linear infinite, fade 2s linear infinite;
+        }
+        @keyframes orbit {
+          0% { transform: rotate(0deg) translateX(60px) rotate(0deg); }
+          100% { transform: rotate(360deg) translateX(60px) rotate(-360deg); }
+        }
+        @keyframes fade {
+          0% { opacity: 1; }
+          100% { opacity: 0; }
+        }
+      `}</style>
+      <div className="relative flex items-center justify-center w-48 h-48">
+        <img src="/logo.png" alt="Invasion Logo" className="w-32 h-32" />
+        <div className="neon-dot" style={{ animationDelay: '0s' }} />
+        <div className="neon-dot" style={{ animationDelay: '0.5s' }} />
+        <div className="neon-dot" style={{ animationDelay: '1s' }} />
+      </div>
       <button
         className="px-6 py-2 bg-purple-500 rounded hover:bg-purple-600"
         onClick={() => setState('playing')}
