@@ -258,10 +258,12 @@ export default function Game() {
         onClick={() => {
           setEnemies([]);
           setProjectiles([]);
+          setEnemyProjectiles([]);
           setPlayerX(PLAYER_X);
           setPowerUpActive(false);
           setPowerUpSpawned(false);
           setPowerUp(null);
+          setFiredEnemies(new Set());
           setState('playing');
         }}
       >
