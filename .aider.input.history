@@ -220,3 +220,45 @@
 +Add a big "neon pink dot" that circles the start game icon. 
 +The neon pink dot leaves a trail that fades then disappears.
 +This loops over and over
+
+# 2025-11-30 22:33:17.338585
++Add a new shooting power-up to the game:
++
++After 10 seconds of gameplay, spawn a falling parachute emoji power-up from the top of the screen.
++It should slowly fall straight downward.
++
++The power-up can be shot by the player.
++When the helicopter’s yellow bullets hit the parachute emoji, the power-up activates.
++
++When activated, upgrade the player’s weapon:
++
++Instead of 1 single yellow shot, the helicopter fires a 3-burst wide spread.
++
++The 3 shots should spread left, center, and right.
++
++Keep the same firing button.
++
++The power-up effect should last until the player loses, or until the game resets.
++
++Only one power-up needs to appear per game.
+
+# 2025-11-30 22:33:17.338993
++Add a new shooting power-up to the game:
++
++After 10 seconds of gameplay, spawn a falling parachute emoji power-up from the top of the screen.
++It should slowly fall straight downward.
++
++The power-up can be shot by the player.
++When the helicopter’s yellow bullets hit the parachute emoji, the power-up activates.
++
++When activated, upgrade the player’s weapon:
++
++Instead of 1 single yellow shot, the helicopter fires a 3-burst wide spread.
++
++The 3 shots should spread left, center, and right.
++
++Keep the same firing button.
++
++The power-up effect should last until the player loses, or until the game resets.
++
++Only one power-up needs to appear per game.
