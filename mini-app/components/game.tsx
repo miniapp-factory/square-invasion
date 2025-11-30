@@ -21,6 +21,7 @@ export default function Game() {
   const [playerX, setPlayerX] = useState(PLAYER_X);
   const [enemies, setEnemies] = useState<Enemy[]>([]);
   const [projectiles, setProjectiles] = useState<Projectile[]>([]);
+  const [hitCount, setHitCount] = useState(0);
   const [leftSquares, setLeftSquares] = useState<
     { id: number; y: number; x: number }[]
   >([]);
@@ -59,18 +60,6 @@ export default function Game() {
         return remaining;
       });
       setProjectiles((prev) => prev.filter((p) => p.y > -20));
-      // Update left border squares
-      setLeftSquares((prev) =>
-        prev
-          .map((s) => ({ ...s, y: s.y + BORDER_SPEED }))
-          .filter((s) => s.y < GAME_HEIGHT + 20)
-      );
-      // Update right border squares
-      setRightSquares((prev) =>
-        prev
-          .map((s) => ({ ...s, y: s.y + BORDER_SPEED }))
-          .filter((s) => s.y < GAME_HEIGHT + 20)
-      );
       // Check for enemies reaching bottom
       if (enemies.some((e) => e.y > GAME_HEIGHT)) {
         setState('gameover');
@@ -163,6 +152,7 @@ export default function Game() {
       ref={gameAreaRef}
       className="relative w-[400px] h-[600px] bg-gradient-to-b from-purple-700 via-blue-800 to-purple-900 overflow-hidden"
     >
+      <div className="absolute top-2 left-2 text-white font-semibold">Hits: {hitCount}</div>
       {/* Player */}
       <div
         className="absolute text-4xl"
@@ -184,11 +174,15 @@ export default function Game() {
       {projectiles.map((p) => (
         <div
           key={p.id}
-          className="absolute text-2xl"
-          style={{ left: p.x - 5, top: p.y }}
-        >
-          🟡
-        </div>
+          className="absolute"
+          style={{
+            left: p.x - 1,
+            top: p.y - 5,
+            width: 2,
+            height: 10,
+            backgroundColor: 'yellow',
+          }}
+        />
       ))}
       {/* Left border squares */}
       {leftSquares.map((s) => (
