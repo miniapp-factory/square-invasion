@@ -361,10 +361,10 @@ export default function Game() {
           key={p.id}
           className="absolute"
           style={{
-            left: p.x - 1,
-            top: p.y - 1,
-            width: 2,
-            height: 2,
+            left: p.x - 2,
+            top: p.y - 2,
+            width: 4,
+            height: 4,
             backgroundColor: 'red',
           }}
         />
