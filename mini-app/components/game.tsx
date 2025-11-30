@@ -256,6 +256,9 @@ export default function Game() {
           setEnemies([]);
           setProjectiles([]);
           setPlayerX(PLAYER_X);
+          setPowerUpActive(false);
+          setPowerUpSpawned(false);
+          setPowerUp(null);
           setState('playing');
         }}
       >
