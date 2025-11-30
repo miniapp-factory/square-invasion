@@ -60,7 +60,17 @@ export default function Game() {
           .map((p) => ({ ...p, y: p.y - PROJECTILE_SPEED }))
           .filter((p) => p.y > -20)
       );
-      // Collision detection
+      // Move enemy projectiles
+      setEnemyProjectiles((prev) =>
+        prev
+          .map((p) => ({ ...p, y: p.y + PROJECTILE_SPEED }))
+          .filter((p) => p.y < GAME_HEIGHT)
+      );
+      // Collision detection: player vs enemy projectiles
+      if (enemyProjectiles.some((p) => Math.abs(p.x - playerX) < 10 && Math.abs(p.y - PLAYER_Y) < 10)) {
+        setState('gameover');
+      }
+      // Collision detection: player vs enemies
       setEnemies((prevEnemies) => {
         const hits = prevEnemies.filter((e) =>
           projectiles.some(
@@ -96,9 +106,30 @@ export default function Game() {
       if (enemies.some((e) => e.y > GAME_HEIGHT)) {
         setState('gameover');
       }
+      // Enemy shooting after 20s
+      const elapsed = Date.now() - startTimeRef.current;
+      if (elapsed > 20000) {
+        enemies.forEach((e) => {
+          if (!firedEnemies.has(e.id)) {
+            // first bullet
+            setEnemyProjectiles((prev) => [
+              ...prev,
+              { id: projectileIdRef.current++, x: e.x, y: e.y },
+            ]);
+            // second bullet after 500ms
+            setTimeout(() => {
+              setEnemyProjectiles((prev) => [
+                ...prev,
+                { id: projectileIdRef.current++, x: e.x, y: e.y },
+              ]);
+            }, 500);
+            setFiredEnemies((prev) => new Set(prev).add(e.id));
+          }
+        });
+      }
     }, 16);
     return () => clearInterval(interval);
-  }, [state, enemies, projectiles]);
+  }, [state, enemies, projectiles, enemyProjectiles, firedEnemies]);
 
   // Move rain squares
   useEffect(() => {
