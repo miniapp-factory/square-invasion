@@ -194,3 +194,17 @@
 
 # 2025-11-30 20:07:40.261550
 +apply changes
+
+# 2025-11-30 21:19:23.997351
++Add a background effect of hot pink squares falling from the top of the screen. 
++They should be visual only and NOT interact with the game at all. 
++Make them fall straight down at random speeds and sizes. 
++Keep them low opacity and remove them when off-screen.
++
+
+# 2025-11-30 21:19:23.998272
++Add a background effect of hot pink squares falling from the top of the screen. 
++They should be visual only and NOT interact with the game at all. 
++Make them fall straight down at random speeds and sizes. 
++Keep them low opacity and remove them when off-screen.
++
