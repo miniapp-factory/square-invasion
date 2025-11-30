@@ -12,6 +12,7 @@ const PROJECTILE_SPEED = 3; // px per tick
 const BORDER_SQUARE_SIZE = 10;
 const BORDER_SPAWN_INTERVAL = 500; // ms
 const BORDER_SPEED = 1.5; // px per tick
+const SHADES = ['#8e44ad', '#9b59b6', '#a569bd', '#af7ac5', '#b795c0'];
 
 type Enemy = { id: number; x: number; y: number };
 type Projectile = { id: number; x: number; y: number };
@@ -21,6 +22,10 @@ export default function Game() {
   const [playerX, setPlayerX] = useState(PLAYER_X);
   const [enemies, setEnemies] = useState<Enemy[]>([]);
   const [projectiles, setProjectiles] = useState<Projectile[]>([]);
+  const [rainSquares, setRainSquares] = useState<
+      { id: number; x: number; y: number; color: string }[]
+    >([]);
+  const rainIdRef = useRef(0);
   const [hitCount, setHitCount] = useState(0);
   const [leftSquares, setLeftSquares] = useState<
     { id: number; y: number; x: number }[]
@@ -75,6 +80,19 @@ export default function Game() {
     return () => clearInterval(interval);
   }, [state, enemies, projectiles]);
 
+  // Move rain squares
+  useEffect(() => {
+    if (state !== 'playing') return;
+    const interval = setInterval(() => {
+      setRainSquares((prev) =>
+        prev
+          .map((s) => ({ ...s, y: s.y + 2 }))
+          .filter((s) => s.y < GAME_HEIGHT + 10)
+      );
+    }, 16);
+    return () => clearInterval(interval);
+  }, [state]);
+
   // Enemy spawn
   useEffect(() => {
     if (state !== 'playing') return;
@@ -89,30 +107,6 @@ export default function Game() {
     return () => clearInterval(interval);
   }, [state]);
 
-  // Border square spawn
-  useEffect(() => {
-    if (state !== 'playing') return;
-    const spawnLeft = () => {
-      const x = Math.random() * 20;
-      setLeftSquares((prev) => [
-        ...prev,
-        { id: enemyIdRef.current++, x, y: -BORDER_SQUARE_SIZE },
-      ]);
-    };
-    const spawnRight = () => {
-      const x = Math.random() * 20;
-      setRightSquares((prev) => [
-        ...prev,
-        { id: enemyIdRef.current++, x, y: -BORDER_SQUARE_SIZE },
-      ]);
-    };
-    const leftInterval = setInterval(spawnLeft, BORDER_SPAWN_INTERVAL);
-    const rightInterval = setInterval(spawnRight, BORDER_SPAWN_INTERVAL);
-    return () => {
-      clearInterval(leftInterval);
-      clearInterval(rightInterval);
-    };
-  }, [state]);
 
   const handleShoot = () => {
     setProjectiles((prev) => [
@@ -188,34 +182,6 @@ export default function Game() {
             width: 2,
             height: 10,
             backgroundColor: 'yellow',
-          }}
-        />
-      ))}
-      {/* Left border squares */}
-      {leftSquares.map((s) => (
-        <div
-          key={s.id}
-          className="absolute"
-          style={{
-            left: s.x,
-            top: s.y,
-            width: BORDER_SQUARE_SIZE,
-            height: BORDER_SQUARE_SIZE,
-            backgroundColor: 'red',
-          }}
-        />
-      ))}
-      {/* Right border squares */}
-      {rightSquares.map((s) => (
-        <div
-          key={s.id}
-          className="absolute"
-          style={{
-            left: GAME_WIDTH - BORDER_SQUARE_SIZE + s.x,
-            top: s.y,
-            width: BORDER_SQUARE_SIZE,
-            height: BORDER_SQUARE_SIZE,
-            backgroundColor: 'gray',
           }}
         />
       ))}
