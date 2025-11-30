@@ -87,6 +87,19 @@ export default function Game() {
     return () => clearInterval(interval);
   }, [state]);
 
+  // Move pink squares
+  useEffect(() => {
+    if (state !== 'playing') return;
+    const interval = setInterval(() => {
+      setPinkSquares((prev) =>
+        prev
+          .map((s) => ({ ...s, y: s.y + s.speed }))
+          .filter((s) => s.y < GAME_HEIGHT + s.size)
+      );
+    }, 16);
+    return () => clearInterval(interval);
+  }, [state]);
+
   // Enemy spawn
   useEffect(() => {
     if (state !== 'playing') return;
@@ -98,6 +111,22 @@ export default function Game() {
       ]);
     };
     const interval = setInterval(spawn, ENEMY_SPAWN_INTERVAL);
+    return () => clearInterval(interval);
+  }, [state]);
+
+  // Spawn pink squares
+  useEffect(() => {
+    if (state !== 'playing') return;
+    const spawn = () => {
+      const x = Math.random() * GAME_WIDTH;
+      const size = Math.random() * 10 + 5; // 5 to 15 px
+      const speed = Math.random() * 1.5 + 0.5; // 0.5 to 2 px per tick
+      setPinkSquares((prev) => [
+        ...prev,
+        { id: pinkIdRef.current++, x, y: -size, size, speed },
+      ]);
+    };
+    const interval = setInterval(spawn, 500);
     return () => clearInterval(interval);
   }, [state]);
 
@@ -165,6 +194,22 @@ export default function Game() {
           ✈️
         </div>
       ))}
+      {/* Pink squares */}
+      {pinkSquares.map((s) => (
+        <div
+          key={s.id}
+          className="absolute"
+          style={{
+            left: s.x,
+            top: s.y,
+            width: s.size,
+            height: s.size,
+            backgroundColor: 'hotpink',
+            opacity: 0.3,
+          }}
+        />
+      ))}
+
       {/* Projectiles */}
       {projectiles.map((p) => (
         <div
