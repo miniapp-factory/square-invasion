@@ -22,6 +22,8 @@ export default function Game() {
   const [playerX, setPlayerX] = useState(PLAYER_X);
   const [enemies, setEnemies] = useState<Enemy[]>([]);
   const [projectiles, setProjectiles] = useState<Projectile[]>([]);
+  const [enemyProjectiles, setEnemyProjectiles] = useState<Projectile[]>([]);
+  const [firedEnemies, setFiredEnemies] = useState<Set<number>>(new Set());
   const [rainSquares, setRainSquares] = useState<
       { id: number; x: number; y: number; color: string }[]
     >([]);
@@ -33,6 +35,7 @@ export default function Game() {
   const [hitCount, setHitCount] = useState(0);
   const enemyIdRef = useRef(0);
   const projectileIdRef = useRef(0);
+  const startTimeRef = useRef<number>(0);
   const [powerUp, setPowerUp] = useState<
     { id: number; x: number; y: number; size: number; speed: number } | null
   >(null);
@@ -240,7 +243,7 @@ export default function Game() {
       </div>
       <button
         className="px-6 py-2 bg-purple-500 rounded hover:bg-purple-600"
-        onClick={() => setState('playing')}
+        onClick={() => { setState('playing'); startTimeRef.current = Date.now(); }}
       >
         Start Game
       </button>
@@ -317,6 +320,19 @@ export default function Game() {
             width: 2,
             height: 10,
             backgroundColor: 'yellow',
+          }}
+        />
+      ))}
+      {enemyProjectiles.map((p) => (
+        <div
+          key={p.id}
+          className="absolute"
+          style={{
+            left: p.x - 1,
+            top: p.y - 1,
+            width: 2,
+            height: 2,
+            backgroundColor: 'red',
           }}
         />
       ))}
