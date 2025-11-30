@@ -33,6 +33,12 @@ export default function Game() {
   const [hitCount, setHitCount] = useState(0);
   const enemyIdRef = useRef(0);
   const projectileIdRef = useRef(0);
+  const [powerUp, setPowerUp] = useState<
+    { id: number; x: number; y: number; size: number; speed: number } | null
+  >(null);
+  const powerUpIdRef = useRef(0);
+  const [powerUpActive, setPowerUpActive] = useState(false);
+  const [powerUpSpawned, setPowerUpSpawned] = useState(false);
   const gameAreaRef = useRef<HTMLDivElement>(null);
 
   // Game loop
@@ -69,6 +75,19 @@ export default function Game() {
           )
         );
       });
+
+      // Power‑up collision
+      if (powerUp) {
+        const hitPower = projectiles.some(
+          (p) =>
+            Math.abs(p.x - powerUp.x) < powerUp.size / 2 &&
+            Math.abs(p.y - powerUp.y) < powerUp.size / 2
+        );
+        if (hitPower) {
+          setPowerUpActive(true);
+          setPowerUp(null);
+        }
+      }
       setProjectiles((prev) => prev.filter((p) => p.y > -20));
       // Check for enemies reaching bottom
       if (enemies.some((e) => e.y > GAME_HEIGHT)) {
@@ -104,6 +123,22 @@ export default function Game() {
     return () => clearInterval(interval);
   }, [state]);
 
+  // Move power‑up
+  useEffect(() => {
+    if (state !== 'playing' || !powerUp) return;
+    const interval = setInterval(() => {
+      setPowerUp((prev) =>
+        prev
+          ? {
+              ...prev,
+              y: prev.y + prev.speed,
+            }
+          : null
+      );
+    }, 16);
+    return () => clearInterval(interval);
+  }, [state, powerUp]);
+
   // Enemy spawn
   useEffect(() => {
     if (state !== 'playing') return;
@@ -117,6 +152,25 @@ export default function Game() {
     const interval = setInterval(spawn, ENEMY_SPAWN_INTERVAL);
     return () => clearInterval(interval);
   }, [state]);
+
+  // Power‑up spawn after 10 s
+  useEffect(() => {
+    if (state !== 'playing' || powerUpSpawned) return;
+    const timer = setTimeout(() => {
+      const x = Math.random() * GAME_WIDTH;
+      const size = 30;
+      const speed = 1;
+      setPowerUp({
+        id: powerUpIdRef.current++,
+        x,
+        y: -size,
+        size,
+        speed,
+      });
+      setPowerUpSpawned(true);
+    }, 10000);
+    return () => clearTimeout(timer);
+  }, [state, powerUpSpawned]);
 
   // Spawn pink squares
   useEffect(() => {
@@ -136,10 +190,22 @@ export default function Game() {
 
 
   const handleShoot = () => {
-    setProjectiles((prev) => [
-      ...prev,
-      { id: projectileIdRef.current++, x: playerX, y: PLAYER_Y - 20 },
-    ]);
+    if (powerUpActive) {
+      const offsets = [-10, 0, 10];
+      setProjectiles((prev) => [
+        ...prev,
+        ...offsets.map((dx) => ({
+          id: projectileIdRef.current++,
+          x: playerX + dx,
+          y: PLAYER_Y - 20,
+        })),
+      ]);
+    } else {
+      setProjectiles((prev) => [
+        ...prev,
+        { id: projectileIdRef.current++, x: playerX, y: PLAYER_Y - 20 },
+      ]);
+    }
   };
 
   const handleMove = (dx: number) => {
@@ -251,6 +317,25 @@ export default function Game() {
           }}
         />
       ))}
+
+      {/* Power‑up */}
+      {powerUp && (
+        <div
+          key={powerUp.id}
+          className="absolute"
+          style={{
+            left: powerUp.x - powerUp.size / 2,
+            top: powerUp.y - powerUp.size / 2,
+            width: powerUp.size,
+            height: powerUp.size,
+            fontSize: powerUp.size,
+            textAlign: 'center',
+          }}
+        >
+          🪂
+        </div>
+      )}
+
       {/* Controls */}
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-4">
         <button
