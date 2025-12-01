@@ -406,3 +406,17 @@
 +If player successfully shoots the first parachute emoji Power Up,
 +Send a 2nd parachute emoji that will increase the player's firing capacity from 3 bullets to 5 bullets.
 +Game resets back to default when Try Again button is pressed.
+
+# 2025-12-01 01:17:41.041166
++2nd Power-Up Add On
++
++Add 2nd Power-Up.
++If player successfully shoots the first "parachute emoji" send a 2nd "parachute emoji"  30 seconds after game starts. If player shoots the 2nd parachute emoji, the player's shooting capacity increases from 3 bullets to 5 bullets. 
++Reset back to default after "Try Again" button is pressed.
+
+# 2025-12-01 01:17:41.041546
++2nd Power-Up Add On
++
++Add 2nd Power-Up.
++If player successfully shoots the first "parachute emoji" send a 2nd "parachute emoji"  30 seconds after game starts. If player shoots the 2nd parachute emoji, the player's shooting capacity increases from 3 bullets to 5 bullets. 
++Reset back to default after "Try Again" button is pressed.
