@@ -425,7 +425,7 @@ export default function Game() {
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-4">
         <button
           className="px-4 py-2 bg-purple-500 rounded hover:bg-purple-600"
-          onClick={() => handleMove(-20)}
+          onClick={() => handleMove(-40)}
         >
           Left
         </button>
@@ -437,7 +437,7 @@ export default function Game() {
         </button>
         <button
           className="px-4 py-2 bg-purple-500 rounded hover:bg-purple-600"
-          onClick={() => handleMove(20)}
+          onClick={() => handleMove(40)}
         >
           Right
         </button>
