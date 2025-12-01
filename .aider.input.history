@@ -394,3 +394,15 @@
 +Enable Enemy fire after 20 seconds everytime "Try Again" button is pushed.
 +
 +And increase the size of enemy "red bullets"
+
+# 2025-12-01 00:59:56.197899
++Add a 2nd Power Up
++If player successfully shoots the first parachute emoji Power Up,
++Send a 2nd parachute emoji that will increase the player's firing capacity from 3 bullets to 5 bullets.
++Game resets back to default when Try Again button is pressed.
+
+# 2025-12-01 00:59:56.198380
++Add a 2nd Power Up
++If player successfully shoots the first parachute emoji Power Up,
++Send a 2nd parachute emoji that will increase the player's firing capacity from 3 bullets to 5 bullets.
++Game resets back to default when Try Again button is pressed.
