@@ -295,6 +295,7 @@ export default function Game() {
           setPowerUpSpawned(false);
           setPowerUp(null);
           setFiredEnemies(new Set());
+          startTimeRef.current = Date.now();
           setState('playing');
         }}
       >
@@ -361,10 +362,10 @@ export default function Game() {
           key={p.id}
           className="absolute"
           style={{
-            left: p.x - 2,
-            top: p.y - 2,
-            width: 4,
-            height: 4,
+            left: p.x - 3,
+            top: p.y - 3,
+            width: 6,
+            height: 6,
             backgroundColor: 'red',
           }}
         />
