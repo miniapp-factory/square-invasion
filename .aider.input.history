@@ -420,3 +420,11 @@
 +Add 2nd Power-Up.
 +If player successfully shoots the first "parachute emoji" send a 2nd "parachute emoji"  30 seconds after game starts. If player shoots the 2nd parachute emoji, the player's shooting capacity increases from 3 bullets to 5 bullets. 
 +Reset back to default after "Try Again" button is pressed.
+
+# 2025-12-01 01:39:25.374501
++Show player's Score on "Try Again" screen. 
++Reset score when "Try Again" button is pressed.
+
+# 2025-12-01 01:39:25.374885
++Show player's Score on "Try Again" screen. 
++Reset score when "Try Again" button is pressed.
