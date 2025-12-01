@@ -309,6 +309,7 @@ export default function Game() {
   const renderGameOver = () => (
     <div className="flex flex-col items-center gap-4">
       <h1 className="text-4xl font-bold">Game Over</h1>
+      <div className="text-2xl">Score: {hitCount}</div>
       <button
         className="px-6 py-2 bg-purple-500 rounded hover:bg-purple-600"
         onClick={() => {
@@ -322,6 +323,7 @@ export default function Game() {
           setFiredEnemies(new Set());
           setPowerUpLevel(1);
           setSecondPowerUpSpawned(false);
+          setHitCount(0);
           startTimeRef.current = Date.now();
           setState('playing');
         }}
