@@ -37,10 +37,12 @@ export default function Game() {
   const projectileIdRef = useRef(0);
   const startTimeRef = useRef<number>(0);
   const [powerUp, setPowerUp] = useState<
-    { id: number; x: number; y: number; size: number; speed: number } | null
+    { id: number; x: number; y: number; size: number; speed: number; type: 'first' | 'second' } | null
   >(null);
   const powerUpIdRef = useRef(0);
   const [powerUpActive, setPowerUpActive] = useState(false);
+  const [powerUpLevel, setPowerUpLevel] = useState<number>(1);
+  const [secondPowerUpSpawned, setSecondPowerUpSpawned] = useState<boolean>(false);
   const [powerUpSpawned, setPowerUpSpawned] = useState(false);
   const gameAreaRef = useRef<HTMLDivElement>(null);
 
@@ -97,7 +99,11 @@ export default function Game() {
             Math.abs(p.y - powerUp.y) < powerUp.size / 2
         );
         if (hitPower) {
-          setPowerUpActive(true);
+          if (powerUp.type === 'first') {
+            setPowerUpActive(true);
+          } else if (powerUp.type === 'second') {
+            setPowerUpLevel(5);
+          }
           setPowerUp(null);
         }
       }
@@ -200,11 +206,32 @@ export default function Game() {
         y: -size,
         size,
         speed,
+        type: 'first',
       });
       setPowerUpSpawned(true);
     }, 10000);
     return () => clearTimeout(timer);
   }, [state, powerUpSpawned]);
+
+  // Spawn second power‑up 30 s after game starts, only if first power‑up was shot
+  useEffect(() => {
+    if (!powerUpActive || secondPowerUpSpawned) return;
+    const timer = setTimeout(() => {
+      const x = Math.random() * GAME_WIDTH;
+      const size = 30;
+      const speed = 1;
+      setPowerUp({
+        id: powerUpIdRef.current++,
+        x,
+        y: -size,
+        size,
+        speed,
+        type: 'second',
+      });
+      setSecondPowerUpSpawned(true);
+    }, 30000);
+    return () => clearTimeout(timer);
+  }, [powerUpActive, secondPowerUpSpawned, startTimeRef.current]);
 
   // Spawn pink squares
   useEffect(() => {
@@ -224,22 +251,20 @@ export default function Game() {
 
 
   const handleShoot = () => {
-    if (powerUpActive) {
-      const offsets = [-10, 0, 10];
-      setProjectiles((prev) => [
-        ...prev,
-        ...offsets.map((dx) => ({
-          id: projectileIdRef.current++,
-          x: playerX + dx,
-          y: PLAYER_Y - 20,
-        })),
-      ]);
-    } else {
-      setProjectiles((prev) => [
-        ...prev,
-        { id: projectileIdRef.current++, x: playerX, y: PLAYER_Y - 20 },
-      ]);
-    }
+    const offsets =
+      powerUpLevel === 5
+        ? [-20, -10, 0, 10, 20]
+        : powerUpActive
+        ? [-10, 0, 10]
+        : [0];
+    setProjectiles((prev) => [
+      ...prev,
+      ...offsets.map((dx) => ({
+        id: projectileIdRef.current++,
+        x: playerX + dx,
+        y: PLAYER_Y - 20,
+      })),
+    ]);
   };
 
   const handleMove = (dx: number) => {
@@ -295,6 +320,8 @@ export default function Game() {
           setPowerUpSpawned(false);
           setPowerUp(null);
           setFiredEnemies(new Set());
+          setPowerUpLevel(1);
+          setSecondPowerUpSpawned(false);
           startTimeRef.current = Date.now();
           setState('playing');
         }}
