@@ -140,7 +140,7 @@ export default function Game() {
       }
       // Enemy shooting after 20s
       const elapsed = Date.now() - startTimeRef.current;
-      if (elapsed > 20000) {
+      if (elapsed > 20000 && elapsed < 120000) {
         enemies.forEach((e) => {
           if (!firedEnemies.has(e.id)) {
             // first bullet
@@ -209,6 +209,8 @@ export default function Game() {
   useEffect(() => {
     if (state !== 'playing') return;
     const spawn = () => {
+      const elapsed = Date.now() - startTimeRef.current;
+      if (elapsed >= 120000) return;
       const x = Math.random() * (GAME_WIDTH - 40) + 20;
       setEnemies((prev) => [
         ...prev,
@@ -409,8 +411,7 @@ export default function Game() {
   );
   const renderWin = () => (
     <div className="flex flex-col items-center gap-4">
-      <h1 className="text-4xl font-bold">You Win!</h1>
-      <div className="text-2xl">Score: {hitCount}</div>
+      <p className="text-4xl font-bold">Congratulations! You Have Defeated the Enemy</p>
       <button
         className="px-6 py-2 bg-purple-500 rounded hover:bg-purple-600"
         onClick={() => {
