@@ -43,6 +43,7 @@ export default function Game() {
   const [powerUpActive, setPowerUpActive] = useState(false);
   const [powerUpLevel, setPowerUpLevel] = useState<number>(1);
   const [secondPowerUpSpawned, setSecondPowerUpSpawned] = useState<boolean>(false);
+  const [thirdPowerUpSpawned, setThirdPowerUpSpawned] = useState<boolean>(false);
   const [powerUpSpawned, setPowerUpSpawned] = useState(false);
   const [ufoSpawned, setUfoSpawned] = useState(false);
   const [ufos, setUfos] = useState<{
@@ -122,6 +123,8 @@ export default function Game() {
             setPowerUpActive(true);
           } else if (powerUp.type === 'second') {
             setPowerUpLevel(5);
+          } else if (powerUp.type === 'third') {
+            setPowerUpLevel(7);
           }
           setPowerUp(null);
         }
@@ -279,6 +282,26 @@ export default function Game() {
     return () => clearTimeout(timer);
   }, [powerUpActive, secondPowerUpSpawned, startTimeRef.current]);
 
+  // Spawn third power‑up 65 s after game starts, only if first power‑up was shot
+  useEffect(() => {
+    if (!powerUpActive || thirdPowerUpSpawned) return;
+    const timer = setTimeout(() => {
+      const x = Math.random() * GAME_WIDTH;
+      const size = 30;
+      const speed = 1;
+      setPowerUp({
+        id: powerUpIdRef.current++,
+        x,
+        y: -size,
+        size,
+        speed,
+        type: 'third',
+      });
+      setThirdPowerUpSpawned(true);
+    }, 65000);
+    return () => clearTimeout(timer);
+  }, [powerUpActive, thirdPowerUpSpawned, startTimeRef.current]);
+
   // Spawn pink squares
   useEffect(() => {
     if (state !== 'playing') return;
@@ -298,7 +321,9 @@ export default function Game() {
 
   const handleShoot = () => {
     const offsets =
-      powerUpLevel === 5
+      powerUpLevel === 7
+        ? [-30, -20, -10, 0, 10, 20, 30]
+        : powerUpLevel === 5
         ? [-20, -10, 0, 10, 20]
         : powerUpActive
         ? [-10, 0, 10]
@@ -372,6 +397,7 @@ export default function Game() {
           setFiredEnemies(new Set());
           setPowerUpLevel(1);
           setSecondPowerUpSpawned(false);
+          setThirdPowerUpSpawned(false);
           setHitCount(0);
           startTimeRef.current = Date.now();
           setState('playing');
