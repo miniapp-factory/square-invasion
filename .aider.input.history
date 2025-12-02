@@ -450,3 +450,27 @@
 
 # 2025-12-01 02:12:41.562068
 +Make the helicopter "left and right" movements faster
+
+# 2025-12-02 13:13:26.021756
++When player reaches 60 seconds in game,
++
++Spawn 3 Ufo's "ufo emoji" at the top of the screen. 
++Left, center and right.
++
++Ufo stays near the top and moves slowly left and right.
++
++Ufo takes 20 hits of damage each before they disappear.
++
++Once all 3 ufo's disappear, Player "Wins" the Game 
+
+# 2025-12-02 13:13:26.022364
++When player reaches 60 seconds in game,
++
++Spawn 3 Ufo's "ufo emoji" at the top of the screen. 
++Left, center and right.
++
++Ufo stays near the top and moves slowly left and right.
++
++Ufo takes 20 hits of damage each before they disappear.
++
++Once all 3 ufo's disappear, Player "Wins" the Game 
