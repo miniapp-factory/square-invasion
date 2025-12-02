@@ -18,7 +18,7 @@ type Enemy = { id: number; x: number; y: number };
 type Projectile = { id: number; x: number; y: number };
 
 export default function Game() {
-  const [state, setState] = useState<'start' | 'playing' | 'gameover'>('start');
+  const [state, setState] = useState<'start' | 'playing' | 'gameover' | 'won'>('start');
   const [playerX, setPlayerX] = useState(PLAYER_X);
   const [enemies, setEnemies] = useState<Enemy[]>([]);
   const [projectiles, setProjectiles] = useState<Projectile[]>([]);
@@ -44,6 +44,14 @@ export default function Game() {
   const [powerUpLevel, setPowerUpLevel] = useState<number>(1);
   const [secondPowerUpSpawned, setSecondPowerUpSpawned] = useState<boolean>(false);
   const [powerUpSpawned, setPowerUpSpawned] = useState(false);
+  const [ufoSpawned, setUfoSpawned] = useState(false);
+  const [ufos, setUfos] = useState<{
+    id: number;
+    x: number;
+    y: number;
+    direction: number;
+    health: number;
+  }[]>([]);
   const gameAreaRef = useRef<HTMLDivElement>(null);
 
   // Game loop
@@ -55,6 +63,17 @@ export default function Game() {
         prev
           .map((e) => ({ ...e, y: e.y + ENEMY_SPEED }))
           .filter((e) => e.y < GAME_HEIGHT + 20)
+      );
+      // Move UFOs
+      setUfos((prev) =>
+        prev.map((u) => {
+          let newX = u.x + u.direction * 0.5;
+          if (newX < 20 || newX > GAME_WIDTH - 20) {
+            newX = u.x - u.direction * 0.5;
+            return { ...u, x: newX, direction: -u.direction };
+          }
+          return { ...u, x: newX };
+        })
       );
       // Move projectiles
       setProjectiles((prev) =>
@@ -111,6 +130,10 @@ export default function Game() {
       // Check for enemies reaching bottom
       if (enemies.some((e) => e.y > GAME_HEIGHT)) {
         setState('gameover');
+      }
+      // Check win condition
+      if (ufoSpawned && ufos.length === 0) {
+        setState('won');
       }
       // Enemy shooting after 20s
       const elapsed = Date.now() - startTimeRef.current;
@@ -212,6 +235,29 @@ export default function Game() {
     }, 10000);
     return () => clearTimeout(timer);
   }, [state, powerUpSpawned]);
+
+  // Spawn UFOs after 60s
+  useEffect(() => {
+    if (state !== 'playing' || ufoSpawned) return;
+    const timer = setTimeout(() => {
+      const positions = [
+        { x: 50, y: 20 },
+        { x: GAME_WIDTH / 2, y: 20 },
+        { x: GAME_WIDTH - 50, y: 20 },
+      ];
+      setUfos(
+        positions.map((pos, idx) => ({
+          id: idx,
+          x: pos.x,
+          y: pos.y,
+          direction: 1,
+          health: 20,
+        }))
+      );
+      setUfoSpawned(true);
+    }, 60000);
+    return () => clearTimeout(timer);
+  }, [state, ufoSpawned]);
 
   // Spawn second power‑up 30 s after game starts, only if first power‑up was shot
   useEffect(() => {
@@ -335,6 +381,32 @@ export default function Game() {
       </button>
     </div>
   );
+  const renderWin = () => (
+    <div className="flex flex-col items-center gap-4">
+      <h1 className="text-4xl font-bold">You Win!</h1>
+      <div className="text-2xl">Score: {hitCount}</div>
+      <button
+        className="px-6 py-2 bg-purple-500 rounded hover:bg-purple-600"
+        onClick={() => {
+          setEnemies([]);
+          setProjectiles([]);
+          setEnemyProjectiles([]);
+          setPlayerX(PLAYER_X);
+          setPowerUpActive(false);
+          setPowerUpSpawned(false);
+          setPowerUp(null);
+          setFiredEnemies(new Set());
+          setPowerUpLevel(1);
+          setSecondPowerUpSpawned(false);
+          setHitCount(0);
+          startTimeRef.current = Date.now();
+          setState('playing');
+        }}
+      >
+        Try Again
+      </button>
+    </div>
+  );
 
   const renderGame = () => (
     <div
@@ -357,6 +429,16 @@ export default function Game() {
           style={{ left: e.x - 15, top: e.y }}
         >
           ✈️
+        </div>
+      ))}
+      {/* UFOs */}
+      {ufos.map((u) => (
+        <div
+          key={u.id}
+          className="absolute text-4xl"
+          style={{ left: u.x - 15, top: u.y }}
+        >
+          🛸
         </div>
       ))}
       {/* Pink squares */}
@@ -450,6 +532,7 @@ export default function Game() {
       {state === 'start' && renderStart()}
       {state === 'playing' && renderGame()}
       {state === 'gameover' && renderGameOver()}
+      {state === 'won' && renderWin()}
     </div>
   );
 }
