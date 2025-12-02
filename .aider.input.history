@@ -500,3 +500,11 @@
 +All enemy bullets and airplanes stop spawning. 
 +"Game Over" the Player wins.
 +If this happens, place the following sentence on the page, (Congratulations! You Have Defeated the Enemy) place a (Try Again) button under the sentence to reset the game back to default.
+
+# 2025-12-02 16:13:13.893982
++On the "Start Game" screen  add the following sentence on top of the screen using neon green for letter color,
++(Survive a 2 minute Enemy attack.)  
+
+# 2025-12-02 16:13:13.894348
++On the "Start Game" screen  add the following sentence on top of the screen using neon green for letter color,
++(Survive a 2 minute Enemy attack.)  
