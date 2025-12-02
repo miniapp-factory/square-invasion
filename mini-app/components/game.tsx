@@ -37,7 +37,7 @@ export default function Game() {
   const projectileIdRef = useRef(0);
   const startTimeRef = useRef<number>(0);
   const [powerUp, setPowerUp] = useState<
-    { id: number; x: number; y: number; size: number; speed: number; type: 'first' | 'second' } | null
+    { id: number; x: number; y: number; size: number; speed: number; type: 'first' | 'second' | 'third' } | null
   >(null);
   const powerUpIdRef = useRef(0);
   const [powerUpActive, setPowerUpActive] = useState(false);
