@@ -379,6 +379,9 @@ export default function Game() {
         <div className="neon-dot" style={{ animationDelay: '0.5s' }} />
         <div className="neon-dot" style={{ animationDelay: '1s' }} />
       </div>
+      <p className="text-2xl mb-4 text-center" style={{color: '#39FF14'}}>
+        Survive a 2 minute Enemy attack.
+      </p>
       <p className="text-green-400 mb-4 text-center">
         Defend your Territory from the Enemy. Dodge Enemy Fire and Do Not let them pass. Shoot the ammo drop parachute to up upgrade your guns multiple times.
       </p>
