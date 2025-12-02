@@ -163,6 +163,15 @@ export default function Game() {
     return () => clearInterval(interval);
   }, [state, enemies, projectiles, enemyProjectiles, firedEnemies]);
 
+  // Set win after 120 seconds
+  useEffect(() => {
+    if (state !== 'playing') return;
+    const timer = setTimeout(() => {
+      setState('won');
+    }, 120000);
+    return () => clearTimeout(timer);
+  }, [state]);
+
   // Move rain squares
   useEffect(() => {
     if (state !== 'playing') return;
