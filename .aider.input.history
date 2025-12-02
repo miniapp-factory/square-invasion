@@ -474,3 +474,17 @@
 +Ufo takes 20 hits of damage each before they disappear.
 +
 +Once all 3 ufo's disappear, Player "Wins" the Game 
+
+# 2025-12-02 13:50:10.068150
++3rd Power-Up Add On
++
++Add 3rd Power-Up.
++If player successfully shoots the first "parachute emoji" send a 3rd "parachute emoji"  65 seconds after game starts. If player shoots the 3rd parachute emoji, the player's shooting capacity increases from 5 bullets to 7 bullets. 
++Reset back to default after "Try Again" button is pressed.
+
+# 2025-12-02 13:50:10.071912
++3rd Power-Up Add On
++
++Add 3rd Power-Up.
++If player successfully shoots the first "parachute emoji" send a 3rd "parachute emoji"  65 seconds after game starts. If player shoots the 3rd parachute emoji, the player's shooting capacity increases from 5 bullets to 7 bullets. 
++Reset back to default after "Try Again" button is pressed.
