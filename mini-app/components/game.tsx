@@ -423,7 +423,7 @@ export default function Game() {
   );
   const renderWin = () => (
     <div className="flex flex-col items-center gap-4">
-      <p className="text-4xl font-bold">Congratulations! You Have Defeated the Enemy</p>
+      <p className="text-4xl font-bold" style={{color: '#39FF14'}}>Congratulations! You Have Defeated the Enemy</p>
       <button
         className="px-6 py-2 bg-purple-500 rounded hover:bg-purple-600"
         onClick={() => {
