@@ -508,3 +508,11 @@
 # 2025-12-02 16:13:13.894348
 +On the "Start Game" screen  add the following sentence on top of the screen using neon green for letter color,
 +(Survive a 2 minute Enemy attack.)  
+
+# 2025-12-02 23:59:12.972421
++After player wins,
++Change the color of the letters to "neon green" that read, (Congratulations! You Have Defeated the Enemy) 
+
+# 2025-12-02 23:59:12.972822
++After player wins,
++Change the color of the letters to "neon green" that read, (Congratulations! You Have Defeated the Enemy) 
